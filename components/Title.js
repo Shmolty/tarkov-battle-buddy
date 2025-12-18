@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native';
 
-function Title() {
+function Title({children}) {
     return (
         <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>TARKOV BATTLE BUDDY</Text>
+            <Text style={styles.titleText}>{children}</Text>
         </View>
     )
 }
