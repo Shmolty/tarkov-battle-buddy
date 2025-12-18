@@ -6,6 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 // CUSTOM COMPONENT IMPORTS
 import Title from './components/Title';
 import HomeScreen from './screens/HomeScreen';
+import NavBar from './components/NavBar';
 
 export default function App() {
   return (
@@ -26,13 +27,15 @@ export default function App() {
           >
 
             <View style={styles.contentContainer}>
-
+              
               <Title />
 
               <HomeScreen />
-              
-              <Text style={styles.navText}>At the bottom of every screen will be a navigation pane</Text>
-            
+
+              <NavBar />
+
+              {/* <Text style={styles.navText}>At the bottom of every screen will be a navigation pane</Text> */}
+
             </View>
 
           </ImageBackground>
@@ -46,24 +49,11 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
   },
+  backgroundImage: {
+    opacity: 0.15,
+  },
   contentContainer: {
     flex: 1,
     alignItems: 'center',
   },
-  screen: {
-    flex: 1,
-  },
-  backgroundImage: {
-    opacity: 0.15,
-  },
-
-  // temp
-    navText: {
-        justifyContent: 'flex-end',
-        marginBottom: 65,
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'white',
-        textAlign: 'center',
-    },
 });
