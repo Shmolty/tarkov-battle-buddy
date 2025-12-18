@@ -28,7 +28,10 @@ export default function App() {
 
             <View style={styles.contentContainer}>
               
-              <Title />
+              <View style={styles.title}>
+                <Title />
+              </View>
+              
 
               <HomeScreen />
 
@@ -54,6 +57,8 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
+  },
+  title: {
     alignItems: 'center',
   },
 });

@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
         padding: 15,
         borderWidth: 3,
         borderColor: 'white',
+        width: '85%',
     },
     titleText: {
         fontSize: 28,

@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 50,
         padding: 5,
-        backgroundColor: 'black',
-        borderRadius: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0.45)',
     },
     navButton: {
         width: 75,
