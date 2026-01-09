@@ -1,56 +1,55 @@
-// REACT NATIVE AND EXPO IMPORTS
-import { useState } from 'react';
+// React / R Native and Expo Imports
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { LinearGradient } from 'expo-linear-gradient';
+// import { LinearGradient } from 'expo-linear-gradient';
+// ----TODO: IMPORT LINEAR GRADIENT AND IMPROVE BACKGROUND----
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
-// CUSTOM COMPONENT IMPORTS
-import Title from './components/Title';
+// Screen Imports
 import HomeScreen from './screens/HomeScreen';
+
+
+
+// Create Navigation Container
+const Tabs = createBottomTabNavigator();
+
+// Create Default Theme for Colors and Background
+const Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent',
+  }
+}
 
 export default function App() {
 
   return (
     <>
     <StatusBar style="light" />
-      <View style={styles.rootContainer}>
-        <LinearGradient
-          colors={['black', '#06180cff']}
-          style={styles.rootContainer}
-        >
-          <ImageBackground
-            source={require('./assets/images/background.jpg')}
-            resizeMode="cover"
-            style={styles.rootContainer}
-            imageStyle={styles.backgroundImage}
-          >
+      <ImageBackground source={require('./assets/images/background.jpg')} style={styles.bgImage} >
+      <NavigationContainer theme={Theme}>
+        <Tabs.Navigator>
 
-            <View style={styles.contentContainer}>
+          <Tabs.Screen name="Home" component={HomeScreen}
+            options={{
+              tabBarIcon: ({color, size}) => <Ionicons name="home" color={color} size={size} />
+            }}
+          />
 
-              <View style={styles.title}>
-                <Title>Title Here</Title>
-              </View>
-
-            </View>
-
-          </ImageBackground>
-        </LinearGradient>
-      </View>
+        </Tabs.Navigator>
+      </NavigationContainer>
+      </ImageBackground>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
+  bgImage: {
     flex: 1,
-  },
-  backgroundImage: {
-    opacity: 0.15,
-  },
-  contentContainer: {
-    flex: 1,
-  },
-  title: {
-    alignItems: 'center',
+    height: '100%',
+    width: '100%',
   },
 });
