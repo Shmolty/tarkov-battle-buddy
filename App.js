@@ -1,8 +1,7 @@
 // React / R Native and Expo Imports
-import { StyleSheet, View, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-// import { LinearGradient } from 'expo-linear-gradient';
-// ----TODO: IMPORT LINEAR GRADIENT AND IMPROVE BACKGROUND----
+import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -29,9 +28,17 @@ export default function App() {
   return (
     <>
     <StatusBar style="light" />
+      <LinearGradient style={styles.gradient} colors={['#181818', '#003b05']}>
       <ImageBackground source={require('./assets/images/background.jpg')} style={styles.bgImage} >
       <NavigationContainer theme={Theme}>
-        <Tabs.Navigator>
+        <Tabs.Navigator screenOptions={{
+          sceneContainerStyle: { backgroundColor: 'transparent' },
+          tabBarStyle: {
+            backgroundColor: '#363636',
+            borderTopWidth: 0,
+            elevation: 0,
+          }
+        }}>
 
           <Tabs.Screen name="Home" component={HomeScreen}
             options={{
@@ -42,11 +49,15 @@ export default function App() {
         </Tabs.Navigator>
       </NavigationContainer>
       </ImageBackground>
+      </LinearGradient>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   bgImage: {
     flex: 1,
     height: '100%',

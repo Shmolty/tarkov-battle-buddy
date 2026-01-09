@@ -12,7 +12,7 @@ export default Title;
 
 const styles = StyleSheet.create({
     titleContainer: {
-        marginTop: 60,
+        marginTop: 12,
         padding: 15,
         borderWidth: 3,
         borderColor: 'white',

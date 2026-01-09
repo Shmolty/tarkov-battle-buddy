@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 
+import Title from '../components/Title';
+
 // filler content for prototyping. will be replaced
 const content = [
     'Placeholder content goes here. I am just creating an array of strings as an example',
@@ -17,12 +19,13 @@ const content = [
 function HomeScreen () {
     return (
         <View style={styles.rootScreen}>
-                <FlatList
-                    data={content}
-                    keyExtractor={(item) => item.index}
-                    renderItem={(itemData) => <View key={itemData.index} style={styles.listItem}><Text style={styles.contentText}>{itemData.item}</Text></View>}
-                    alwaysBounceVertical={false}
-                />
+            <Title style={styles.title}>Tarkov Battle Buddy</Title>
+            <FlatList
+                data={content}
+                keyExtractor={(item) => item.index}
+                renderItem={(itemData) => <View key={itemData.index} style={styles.listItem}><Text style={styles.contentText}>{itemData.item}</Text></View>}
+                alwaysBounceVertical={false}
+            />
         </View>
     )
 }
@@ -32,7 +35,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     rootScreen: {
         flex: 1,
-        padding: 15,
+        alignItems: 'center',
     },
     listItem: {
         padding: 15,
