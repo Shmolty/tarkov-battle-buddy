@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
     contentText: {
         color: 'white',
         fontSize: 24,
+        fontFamily: 'bender',
     },
 });
