@@ -29,3 +29,9 @@ That's all I have been working with so far, but this app is very early in develo
 - Quest help screen
 
 More will be added as I get further in development.
+
+## Todo --basic layout--:
+- Improve functionality for loading fonts (create loading screen and await font loading)
+- Add basic layout for all/most screens
+- Add animations to screen navigation
+- Create login screen and start on auth
