@@ -1,17 +1,23 @@
-import React from 'react';
-import { usePreloadedAssets } from './assets/usePreloadedAssets';
-import { AppProviders } from './app/AppProviders';
-import { AppNavigation } from './app/Navigation';
+import React, { useEffect } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import { usePreloadedAssets } from './src/assets/usePreloadedAssets';
+import { AppProviders } from './src/app/AppProviders';
+import { AppNavigation } from './src/app/Navigation';
 
-// delete me when splash page is done
-import { View } from 'react-native';
+SplashScreen.preventAutoHideAsync();
 
-export default function App(): React.JSX.Element {
+export default function App(): React.JSX.Element | null {
   const { ready, images } = usePreloadedAssets();
 
+  // remove splash screen once assets are loaded
+  useEffect(() => {
+    if (!ready || !images) {
+    SplashScreen.hideAsync();
+  }
+  }, [ready, images]);
+  // second check to satisfy TypeScript
   if (!ready || !images) {
-    // Replace with a splash or loader component
-    return <View style={{backgroundColor: 'black'}}></View>;
+    return null;
   }
 
   return (
