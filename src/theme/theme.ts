@@ -8,8 +8,8 @@ export const AppTheme: NavTheme = {
     primary: 'rgb(0, 124, 43)',
     background: 'transparent',
     card: 'rgba(32, 32, 32, 1)',
-    text: 'white',
-    border: 'white',
+    text: 'rgb(255, 255, 255)',
+    border: 'rgb(255, 255, 255)',
     notification: DefaultTheme.colors.notification,
   },
 };

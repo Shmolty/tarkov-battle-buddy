@@ -15,7 +15,7 @@ export default function App(): React.JSX.Element | null {
     SplashScreen.hideAsync();
   }
   }, [ready, images]);
-  // second check to satisfy TypeScript
+  // return null while assets are loading
   if (!ready || !images) {
     return null;
   }

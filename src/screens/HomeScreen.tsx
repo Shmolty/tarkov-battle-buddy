@@ -1,6 +1,11 @@
+// --IMPORTS--
+// Library Imports
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, ListRenderItemInfo } from 'react-native';
+
+// Custom components
 import Title from '../components/Title';
+import { AppTheme } from 'src/theme/theme';
 
 const content: string[] = [
   'Placeholder content goes here. I am just creating an array of strings as an example',
@@ -44,7 +49,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   contentText: {
-    color: 'white',
+    color: AppTheme.colors.text,
     fontSize: 24,
     fontFamily: 'bender',
   },

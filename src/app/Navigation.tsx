@@ -6,6 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { AppTheme } from '../theme/theme';
 import HomeScreen from '../screens/HomeScreen';
 import User from '../screens/User';
+import ItemSearch from 'src/screens/ItemSearch';
 
 const Tabs = createBottomTabNavigator();
 
@@ -24,6 +25,14 @@ export function AppNavigation() {
           component={HomeScreen}
           options={{
             tabBarIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
+          }}
+        />
+        <Tabs.Screen
+          name="ItemSearch"
+          component={ItemSearch}
+          options={{
+            title: 'Item Search',
+            tabBarIcon: ({ color, size }) => <Ionicons name="search-circle" color={color} size={size} />,
           }}
         />
         <Tabs.Screen
