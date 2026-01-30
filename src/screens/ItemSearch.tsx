@@ -1,7 +1,7 @@
 // --IMPORTS--
 // Library Imports
 import React, { useMemo, useRef } from "react";
-import { View, StyleSheet, Text, FlatList } from "react-native";
+import { View, StyleSheet, Text, FlatList, Platform } from "react-native";
 import { useLazyQuery } from '@apollo/client/react';
 
 // Custom components
@@ -11,23 +11,12 @@ import SearchForm from "src/components/SearchForm";
 // GraphQL
 import { SEARCH_ITEMS_BY_NAME } from "src/graphql/items";
 
-type Item = {
-    id: string;
-    name: string;
-    types?: string[];
-};
+// types
+import type { SearchItemsData, SearchItemsVars } from "src/types/item";
+import ItemCard from "src/components/ItemCard";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
-type SearchItemsData = {
-    items: Item[];
-};
-
-type SearchItemsVars = {
-    name: string;
-    limit: number;
-    offset: number;
-};
-
-const PAGE_SIZE = 25;
+const PAGE_SIZE = 8;
 
 // small debounce helper
 function debounce<T extends (...args: any[]) => void>(fn: T, ms: number) {
@@ -96,52 +85,61 @@ export default function ItemSearch(): React.JSX.Element {
         });
     }
 
-    return (
-        <View style={styles.screen}>
-            <Title>Item Search</Title>
-            <SearchForm 
-                onFormSubmit={queryItemsHandler}
-                onTextChange={queryItemsTypingHandler} 
-            />
-            {!called && <Text style={styles.hint}>Type at least 2 characters to search.</Text>}
+    const insets = useSafeAreaInsets();
 
-            {loading && items.length === 0 ? (
-                <Text style={styles.status}>Loading ...</Text>
-            ) : error ? (
-                <Text style={styles.error}>Error: {error.message}</Text>
-            ) : (
-                <View style={styles.listContainer}>
-                    {/* replace this with custom component */}
-                    <FlatList
-                        data={items}
-                        keyExtractor={(item) => item.id}
-                        onEndReached={loadMore}
-                        onEndReachedThreshold={0.4}
-                        renderItem={({ item }) => (
-                            <View style={styles.row}>
-                                <Text style={styles.itemName}>{item.name}</Text>
-                                {!!item.types && item.types.map((type) => {
-                                    return <Text key={type} style={styles.itemType}>{type}</Text>
-                                })}
-                            </View>
-                        )}
-                        ListEmptyComponent={
-                            called ? <Text style={styles.status}>No results.</Text> : null
-                        }
-                    />
-                </View>
-            )}
-            
-        </View>
+    return (
+        <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
+            <View style={styles.screen}>
+                <Title>Item Search</Title>
+                <SearchForm
+                    onFormSubmit={queryItemsHandler}
+                    onTextChange={queryItemsTypingHandler}
+                />
+                {!called && <Text style={styles.hint}>Type at least 2 characters to search.</Text>}
+
+                {loading && items.length === 0 ? (
+                    <Text style={styles.status}>Loading ...</Text>
+                ) : error ? (
+                    <Text style={styles.error}>Error: {error.message}</Text>
+                ) : (
+                    <View style={styles.listContainer}>
+                        {/* replace this with custom component */}
+                        <FlatList
+                            data={items}
+                            keyExtractor={(item) => item.id}
+                            onEndReached={loadMore}
+                            onEndReachedThreshold={0.4}
+                            alwaysBounceVertical={false}
+                            renderItem={({ item }) =>
+                                <ItemCard
+                                    name={item.name}
+                                    imageUri={item.inspectImageLink}
+                                    types={item.types}
+                                    price={item.avg24hPrice}
+                                />
+                            }
+                            ListEmptyComponent={
+                                called ? <Text style={styles.status}>No results.</Text> : null
+                            }
+                            contentContainerStyle={{
+                                paddingBottom: 56 + insets.bottom,
+                            }}
+                            contentInsetAdjustmentBehavior={Platform.OS === 'ios' ? 'never' : undefined}
+                        />
+                    </View>
+                )}
+            </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     screen: {
-        alignItems: 'center'
+        alignItems: 'center',
+        flex: 1,
     },
     listContainer: {
-        justifyContent: 'center'
+        flex: 1,
     },
     hint: {
         opacity: 0.7,

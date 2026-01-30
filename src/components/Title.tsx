@@ -22,7 +22,7 @@ export default Title;
 
 const styles = StyleSheet.create({
   titleContainer: {
-    marginTop: 50,
+    marginTop: 15,
     padding: 15,
     borderWidth: 3,
     borderColor: AppTheme.colors.border,

@@ -6,6 +6,7 @@ import { View, Text, StyleSheet, FlatList, ListRenderItemInfo } from 'react-nati
 // Custom components
 import Title from '../components/Title';
 import { AppTheme } from 'src/theme/theme';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const content: string[] = [
   'Placeholder content goes here. I am just creating an array of strings as an example',
@@ -22,19 +23,21 @@ const content: string[] = [
 
 function HomeScreen(): React.JSX.Element {
   return (
-    <View style={styles.rootScreen}>
-      <Title>Tarkov Battle Buddy</Title>
-      <FlatList
-        data={content}
-        keyExtractor={(item, index) => `${index}`}
-        renderItem={({ item }: ListRenderItemInfo<string>) => (
-          <View style={styles.listItem}>
-            <Text style={styles.contentText}>{item}</Text>
-          </View>
-        )}
-        alwaysBounceVertical={false}
-      />
-    </View>
+    <SafeAreaView style={{flex: 1}} edges={['top', 'left', 'right', 'bottom']}>
+      <View style={styles.rootScreen}>
+        <Title>Tarkov Battle Buddy</Title>
+        <FlatList
+          data={content}
+          keyExtractor={(item, index) => `${index}`}
+          renderItem={({ item }: ListRenderItemInfo<string>) => (
+            <View style={styles.listItem}>
+              <Text style={styles.contentText}>{item}</Text>
+            </View>
+          )}
+          alwaysBounceVertical={false}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 

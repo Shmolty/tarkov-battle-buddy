@@ -5,7 +5,9 @@ export const SEARCH_ITEMS_BY_NAME = gql`
     items(name: $name, limit: $limit, offset: $offset) {
       id
       name
+      inspectImageLink
       types
+      avg24hPrice
     }
   }
 `;
