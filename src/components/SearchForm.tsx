@@ -27,6 +27,8 @@ export default function SearchForm({
         <View style={styles.form}>
             <TextInput
                 placeholder="enter item name"
+                placeholderTextColor='white'
+                maxLength={15}
                 style={styles.input}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -47,12 +49,12 @@ const styles = StyleSheet.create({
         marginVertical: 18,
     },
     input: {
-        width: '50%',
-        paddingHorizontal: 8,
-        backgroundColor: 'white',
+        width: 165,
+        paddingHorizontal: 12,
         borderRadius: 6,
         fontFamily: 'bender',
         fontSize: 18,
-        color: 'black'
+        color: 'white',
+        backgroundColor: 'black'
     }
 });

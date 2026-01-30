@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Pressable } from "react-native";
 
 type ItemCardProps = {
     imageUri: string;
@@ -9,73 +9,66 @@ type ItemCardProps = {
 }
 
 export default function ItemCard(
-    {imageUri, name, types, price}: ItemCardProps
+    { imageUri, name, types, price }: ItemCardProps
 ): React.JSX.Element {
-    return (
-        <View style={styles.cardContainer}>
 
-            <View style={styles.card}>
+    function onPress() {} // send to item details
+
+    return (
+        <Pressable 
+          onPress={onPress} 
+          style={({ pressed }) => 
+            [styles.pressable, pressed && styles.pressed]}
+        >
+
+            <Text style={styles.name}>{name}</Text>
+
+            <View style={styles.row}>
 
                 <Image
                     source={{ uri: imageUri }}
                     style={styles.image}
                 />
-                <View style={styles.column}>
 
-                    <Text style={styles.name}>{name}</Text>
-
-
-
-                    <View style={styles.row}>
-
-                        <View style={styles.column}>
-                            {types.map((type) => {
-                                return <Text key={type} style={styles.types}>{type}</Text>
-                            })}
-                        </View>
-                        <View style={styles.column}>
-                            <Text style={styles.price}>₽ {price}</Text>
-                        </View>
-
-
-                    </View>
-
-
+                <View>
+                    {types.map((type) => {
+                        return <Text key={type} style={styles.types}>{type}</Text>
+                    })}
                 </View>
 
+                {!!price ? <Text style={styles.price}>Avg Price: ₽{price}</Text> : <Text style={styles.noPrice}>Not on flea</Text>}
+                
             </View>
-        </View>
+        </Pressable>
     )
 }
 
 const styles = StyleSheet.create({
-    cardContainer: {
-        flex: 1,
-        marginBottom: 20,
+    pressable: {
+        marginBottom: 15,
+        padding: 12,
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        borderRadius: 10,
-        marginHorizontal: 10,
+        borderRadius: 16,
+        marginHorizontal: 20
     },
-    card: {
-        flexDirection: 'row',
-        padding: 16,
+    pressed: {
+        opacity: 0.75,
     },
     row: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    image: {
-        height: 60,
-        width: 60,
-        marginRight: 12,
-    },
-    column: {
-        flexDirection: 'column',
     },
     name: {
         fontFamily: 'bender-bold',
         fontSize: 16,
         color: 'white',
+        marginBottom: 4,
+        borderBottomColor: 'white',
+        borderBottomWidth: StyleSheet.hairlineWidth
+    },
+    image: {
+        height: 60,
+        width: 60,
+        marginRight: 12,
     },
     types: {
         fontFamily: 'bender',
@@ -86,5 +79,12 @@ const styles = StyleSheet.create({
         fontFamily: 'bender',
         fontSize: 16,
         color: 'white',
+        marginLeft: 'auto',
+    },
+    noPrice: {
+        fontFamily: 'bender',
+        fontSize: 16,
+        color: 'red',
+        marginLeft: 'auto',
     }
 });
