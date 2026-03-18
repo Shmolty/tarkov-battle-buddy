@@ -1,4 +1,6 @@
-// --IMPORTS--
+// ---SEARCH FORM COMPONENT---
+// This is a simple search bar component that is currently used on the ItemSearch screen.
+
 // Library imports
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";

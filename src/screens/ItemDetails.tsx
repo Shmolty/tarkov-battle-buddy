@@ -1,4 +1,8 @@
 // --ITEM DETAILS SCREEN-- 
+// This screen component functions as an expanded details page for an individual item selected from the ItemSearch screen.
+
+// !!!TODO: FIX TYPE SAFETY (REPLACE 'any' WITH CORRECT TYPES)
+
 // Library Imports
 import React from 'react';
 import { View, StyleSheet, ScrollView, Button } from 'react-native';
@@ -9,8 +13,7 @@ import Title from 'src/components/Title';
 import ItemCard from 'src/components/ItemCard';
 import NavigationButton from 'src/components/NavigationButton';
 
-// TODO: FIX TYPE SAFETY (REPLACE 'any' WITH CORRECT TYPES)
-// TODO: Refine layout of item info 
+
 
 export default function ItemDetails(
     {navigation, route} : any

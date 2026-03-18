@@ -1,4 +1,8 @@
-// --IMPORTS--
+// ---ITEM SEARCH SCREEN---
+// This is a top level screen in the item search stack, and also serves as a tab.
+// The primary function of this screen is to allow users to search items (from the tarkov.dev graphql) database, and view results in a list.
+// Items once tapped/pressed will expand into the ItemDetails screen for users to view more info.
+
 // Library Imports
 import React, { useMemo, useRef } from "react";
 import { View, StyleSheet, Text, FlatList, Platform } from "react-native";

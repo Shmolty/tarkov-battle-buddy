@@ -1,4 +1,7 @@
-// --IMPORTS--
+// ---USER SCREEN--
+// This screen will be for a user to view their own 'profile' and user info
+// !!!TODO: ---> Add authentication to the application, then generate user data on this screen. Also add a logout feature here.
+
 // Library Imports
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';

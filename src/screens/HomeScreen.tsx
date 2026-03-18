@@ -1,4 +1,8 @@
-// --IMPORTS--
+// ---HOME SCREEN--
+// This serves as the first screen on user authentication. It is the root screen of the overall app navigation.
+// !!!TODO: --> The intention is to have some form of news feed here or perhaps navigational assistance for the app. As well as a brief intro.
+
+
 // Library Imports
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, ListRenderItemInfo } from 'react-native';
@@ -8,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Title from '../components/Title';
 import { AppTheme } from 'src/theme/theme';
 
-
+// Placholder content for testing purposes.
 const content: string[] = [
   'Placeholder content goes here. I am just creating an array of strings as an example',
   'Here is another sentence that is better off unread. It is a waste of time to sit here and read through this stuff.',

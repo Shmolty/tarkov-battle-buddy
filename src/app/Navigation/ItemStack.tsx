@@ -1,5 +1,6 @@
 // --ITEMSTACK--
 // Stack Navigator for Item Search --> Item Details
+
 // Library Imports
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -8,6 +9,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ItemSearch from "src/screens/ItemSearch";
 import ItemDetails from "src/screens/ItemDetails";
 
+// create stack navigator
 const Stack = createNativeStackNavigator();
 
 export default function ItemStack() : React.JSX.Element {

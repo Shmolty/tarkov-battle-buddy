@@ -1,4 +1,6 @@
-// --IMPORTS--
+// ---APP COMPONENT--
+// This component serves as the initialization of all navigation and assets for the application.
+
 // Library Imports
 import React, { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';

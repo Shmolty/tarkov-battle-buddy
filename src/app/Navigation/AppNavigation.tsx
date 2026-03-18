@@ -1,14 +1,20 @@
+// ---APP NAVIGATION---
+// This is the primary/outermost  Bottom Tabs Navigation logic for the app. All other navigators are to be nested inside of this one.
+
+// Library Imports
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+// Custom Components
 import { AppTheme } from '../../theme/theme';
 import HomeScreen from '../../screens/HomeScreen';
 import User from '../../screens/User';
 import ItemStack from './ItemStack';
 
+// Create BottomTab Navigator
 const Tabs = createBottomTabNavigator();
 
 export function AppNavigation() : React.JSX.Element {

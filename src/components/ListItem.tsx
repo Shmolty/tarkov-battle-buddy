@@ -1,6 +1,12 @@
+// ---LIST ITEM COMPONENT--
+// This component is a small list item that users will find when searching for items on ItemSearch.tsx.
+// List items are all pressable, and once pressed will send the user to the ItemDetails screen.
+
+// Library Imports
 import React from "react";
 import { Image, StyleSheet, Text, View, Pressable } from "react-native";
 
+// props types
 type ListItemProps = {
     imageUri: string;
     name: string;

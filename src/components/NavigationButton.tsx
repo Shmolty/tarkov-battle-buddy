@@ -1,6 +1,11 @@
+// ---NAVIGATION BUTTON COMPONENT---
+// This is a pressable component designed for areas where navigation is needed.
+
+// Library imports
 import React from 'react';
 import { Pressable, Text, StyleSheet } from 'react-native';
 
+// props types
 interface NavButtonProps {
     title: string;
     onPress: () => void;

@@ -1,3 +1,7 @@
+// ---APP THEME---
+// This theme is used to style elements such as the navbar, header, as well as text and icons therein.
+// It can also be exported for use in other elements. So it acts as a primary color pallette for the application.
+
 import { DefaultTheme, Theme as NavTheme } from '@react-navigation/native';
 
 export const AppTheme: NavTheme = {

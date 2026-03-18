@@ -1,4 +1,5 @@
 // ---ITEM CARD COMPONENT---
+// This component is used to display an individual item's details in a neatly packaged card. It's intended location is on the ItemDetails screen.
 
 // Library Imports
 import React from 'react';
@@ -9,6 +10,7 @@ import { AppTheme } from 'src/theme/theme';
 
 // Types
 import { Item } from 'src/types/item';
+// props types
 interface ItemCardProps {
     item: Item;
 }

@@ -1,4 +1,6 @@
-// --IMPORTS--
+// ---TITLE COMPONENT---
+// This component is used as a title card for various screens of the application.
+
 // Library imports
 import React, { ReactNode } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
@@ -6,6 +8,7 @@ import { View, Text, StyleSheet } from 'react-native';
 // Custom components
 import { AppTheme } from 'src/theme/theme';
 
+// prop types
 interface TitleProps {
   children: ReactNode;
 }
