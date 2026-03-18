@@ -7,7 +7,7 @@ import { ApolloProvider } from '@apollo/client/react';
 // Custom components
 import { usePreloadedAssets } from './src/assets/usePreloadedAssets';
 import { AppProviders } from './src/app/AppProviders';
-import { AppNavigation } from './src/app/Navigation';
+import { AppNavigation } from './src/app/Navigation/AppNavigation';
 import { apolloClient } from 'src/graphql/apolloClient';
 
 SplashScreen.preventAutoHideAsync();

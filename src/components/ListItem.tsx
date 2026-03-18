@@ -1,18 +1,17 @@
 import React from "react";
 import { Image, StyleSheet, Text, View, Pressable } from "react-native";
 
-type ItemCardProps = {
+type ListItemProps = {
     imageUri: string;
     name: string;
     types: string[];
     price: number;
+    onPress: () => void;
 }
 
-export default function ItemCard(
-    { imageUri, name, types, price }: ItemCardProps
+export default function ListItem(
+    { imageUri, name, types, price, onPress }: ListItemProps
 ): React.JSX.Element {
-
-    function onPress() {} // send to item details
 
     return (
         <Pressable 

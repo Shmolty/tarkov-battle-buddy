@@ -13,7 +13,7 @@ import { SEARCH_ITEMS_BY_NAME } from "src/graphql/items";
 
 // types
 import type { SearchItemsData, SearchItemsVars } from "src/types/item";
-import ItemCard from "src/components/ItemCard";
+import ListItem from "src/components/ListItem";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PAGE_SIZE = 8;
@@ -27,7 +27,7 @@ function debounce<T extends (...args: any[]) => void>(fn: T, ms: number) {
     };
 }
 
-export default function ItemSearch(): React.JSX.Element {
+export default function ItemSearch({navigation} : any): React.JSX.Element {
     // keep track of latest query to prevent weirdnes if later add pagination
     const latestQueryRef = useRef("");
 
@@ -111,7 +111,8 @@ export default function ItemSearch(): React.JSX.Element {
                             onEndReachedThreshold={0.4}
                             alwaysBounceVertical={false}
                             renderItem={({ item }) =>
-                                <ItemCard
+                                <ListItem
+                                    onPress={() => navigation.navigate('ItemDetails', item)}
                                     name={item.name}
                                     imageUri={item.inspectImageLink}
                                     types={item.types}

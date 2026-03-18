@@ -2,11 +2,12 @@
 // Library Imports
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, ListRenderItemInfo } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Custom components
 import Title from '../components/Title';
 import { AppTheme } from 'src/theme/theme';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const content: string[] = [
   'Placeholder content goes here. I am just creating an array of strings as an example',

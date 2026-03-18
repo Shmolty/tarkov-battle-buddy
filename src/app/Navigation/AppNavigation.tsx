@@ -4,14 +4,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { AppTheme } from '../theme/theme';
-import HomeScreen from '../screens/HomeScreen';
-import User from '../screens/User';
-import ItemSearch from 'src/screens/ItemSearch';
+import { AppTheme } from '../../theme/theme';
+import HomeScreen from '../../screens/HomeScreen';
+import User from '../../screens/User';
+import ItemStack from './ItemStack';
 
 const Tabs = createBottomTabNavigator();
 
-export function AppNavigation() {
+export function AppNavigation() : React.JSX.Element {
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={AppTheme}>
@@ -30,8 +30,8 @@ export function AppNavigation() {
             }}
           />
           <Tabs.Screen
-            name="ItemSearch"
-            component={ItemSearch}
+            name="ItemSearchStack"
+            component={ItemStack}
             options={{
               title: 'Item Search',
               tabBarIcon: ({ color, size }) => <Ionicons name="search-circle" color={color} size={size} />,
