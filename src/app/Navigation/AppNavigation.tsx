@@ -13,6 +13,7 @@ import { AppTheme } from '../../theme/theme';
 import HomeScreen from '../../screens/HomeScreen';
 import User from '../../screens/User';
 import ItemStack from './ItemStack';
+import MapStack from './MapStack';
 
 // Create BottomTab Navigator
 const Tabs = createBottomTabNavigator();
@@ -41,6 +42,14 @@ export function AppNavigation() : React.JSX.Element {
             options={{
               title: 'Item Search',
               tabBarIcon: ({ color, size }) => <Ionicons name="search-circle" color={color} size={size} />,
+            }}
+          />
+          <Tabs.Screen
+            name="MapStack"
+            component={MapStack}
+            options={{
+              title: 'Maps',
+              tabBarIcon: ({ color, size }) => <Ionicons name="map" color={color} size={size} />,
             }}
           />
           <Tabs.Screen
