@@ -2,6 +2,9 @@
 // Screen for selecting a map to view
 // This screen component is the root of the map stack
 
+// !!!TODO: --> Add all maps and create functionality to navigate to mapView passing the map name for selection of correct map.
+// Create map view screen (placeholder for now which displays map name as text)
+
 // Library Imports
 import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
@@ -59,16 +62,12 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'center'
     },
+
+    // delete when done
     tile: {
         margin: 10,
         width: 175,
         height: 150,
-        backgroundColor: 'white',
-        borderRadius: 15,
-        overflow: 'hidden'
+        backgroundColor: 'black',
     },
-    mapImage: {
-        width: '100%',
-        height: '100%',
-    }
 });
