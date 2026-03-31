@@ -32,7 +32,7 @@ More will be added as I get further in development.
 - ~~Improve functionality for loading fonts (create loading screen and await font loading)~~
 - ~~Add item search screen for looking up items~~
 - ~~Add item details screen to expand selected item from search~~
-- Add map selection screen to choose a map for viewing
+- ~~Add map selection screen to choose a map for viewing~~
 - Add individual maps and create a map view screen
 - Add ammunition screen for ballistics info
 - Create scatter plots for each caliber of ammunition (will be toggled on ammunition screen)
