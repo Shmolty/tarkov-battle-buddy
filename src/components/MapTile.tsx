@@ -54,9 +54,8 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: 'bender-bold',
         color: 'white',
-        fontSize: 18,
+        fontSize: 24,
         textShadowColor: 'black',
-        textShadowOffset: { width: 1, height: 1 },
-        textShadowRadius: 2
+        textShadowRadius: 20
     }
 });
