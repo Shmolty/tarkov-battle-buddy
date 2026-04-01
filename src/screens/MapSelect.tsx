@@ -16,6 +16,9 @@ import MapTile from 'src/components/MapTile';
 
 export default function MapSelect()
 : React.JSX.Element {
+    
+    // function to handle map selection
+    // navigates to map view using the map name as a prop to select the appropriate map
     function mapSelectHandler(mapName : string) {
         console.log(mapName);
     }
