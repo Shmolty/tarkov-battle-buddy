@@ -21,7 +21,7 @@ export default function MapStack() : React.JSX.Element {
           }}
         >
             <Stack.Screen name="MapSelect" component={MapSelect} />
-            <Stack.Screen name="MapView" component={MapView} />
+            <Stack.Screen name="MapView" component={MapView} options={{presentation: 'modal', animation: 'slide_from_bottom'}} />
         </Stack.Navigator>
     );
 }

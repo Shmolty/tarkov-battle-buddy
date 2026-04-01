@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+    backgroundColor: '#181818'
   },
   interactiveContainer: {
     flex: 1,
