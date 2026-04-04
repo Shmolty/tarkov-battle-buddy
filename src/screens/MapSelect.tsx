@@ -4,7 +4,6 @@
 
 // !!!TODO: --> Add all maps and create functionality to navigate to mapView passing the map name for selection of correct map.
 // Create map view screen (placeholder for now which displays map name as text)
-// I have a lot of work to do on this project. sheesh
 
 // Library Imports
 import React from 'react';
