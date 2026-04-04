@@ -1,6 +1,8 @@
 // --MAP TILE COMPONENT--
 // This component is a tile for a map that users will select. It is used on the MapSelect screen
 
+// DELETE ME HAHAHAHAH
+
 // Library Imports
 import React from 'react';
 import { Pressable, Text, ImageBackground, StyleSheet, ImageSourcePropType } from 'react-native';
