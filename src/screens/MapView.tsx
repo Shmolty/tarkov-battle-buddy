@@ -1,7 +1,7 @@
 // MapView screen - displays the map image with zoom and pan functionality
 // screen orientation is unlocked so the user can switch to landscape
 
-// !!!TODO --> Improve landscape zoom functionality. The zoom is based on the initial dimensions of the map going off of the device dimensions in portrait mode. This causes an awkward zoom when the device is rotated to landscape. Dimensions should be re-calculated on orientation change, and the button should be moved or removed in landscape to make room. Possibly remove the Navbar as well in landscape.
+// !!!TODO --> Navigation button should be moved or removed in landscape to make room. Possibly remove the Navbar as well in landscape.
 
 // Library Imports
 import React, { useState, useEffect, useMemo } from 'react';
@@ -24,6 +24,7 @@ export default function MapView(
   // current screen dimensions, updates automatically on orientation change
   const { width, height } = useWindowDimensions();
 
+  // image width and height which update based on the screen dimensions changing
   const imageWidth = useMemo(() => width * 0.95, [width]);
   const imageHeight = useMemo(() => imageWidth * (1300 / 900), [imageWidth]);
   const cropHeight = Math.max(height - 200, 200);
