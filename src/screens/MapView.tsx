@@ -1,8 +1,6 @@
 // MapView screen - displays the map image with zoom and pan functionality
 // screen orientation is unlocked so the user can switch to landscape
 
-// !!!TODO --> Navigation button should be moved or removed in landscape to make room. Possibly remove the Navbar as well in landscape.
-
 // Library Imports
 import React, { useState, useEffect, useMemo } from 'react';
 import { View, StyleSheet, Image, useWindowDimensions, Alert } from 'react-native';
@@ -23,11 +21,12 @@ export default function MapView(
   const [mapSource, setMapSource] = useState();
   // current screen dimensions, updates automatically on orientation change
   const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
 
   // image width and height which update based on the screen dimensions changing
   const imageWidth = useMemo(() => width * 0.95, [width]);
   const imageHeight = useMemo(() => imageWidth * (1300 / 900), [imageWidth]);
-  const cropHeight = Math.max(height - 200, 200);
+  const [cropHeight, setCropHeight] = useState(200);
 
   // useEffect to update the map image source based on the mapName passed from MapSelect
   useEffect(() => {
@@ -87,12 +86,14 @@ export default function MapView(
     <SafeAreaView style={styles.full} edges={['top', 'left', 'right', 'bottom']}>
       <View style={styles.full}>
         
-        <NavigationButton
-          title="BACK TO MAP SELECT"
-          onPress={() => navigation.popTo('MapSelect')}
-        />
+        {!isLandscape && (
+          <NavigationButton
+            title="BACK TO MAP SELECT"
+            onPress={() => navigation.popTo('MapSelect')}
+          />
+        )}
 
-        <View style={[styles.interactiveContainer, { width }]}> 
+        <View style={[styles.interactiveContainer, { width }]} onLayout={(event) => setCropHeight(event.nativeEvent.layout.height)}> 
           <ImageZoom
             {...({
               cropWidth: width,

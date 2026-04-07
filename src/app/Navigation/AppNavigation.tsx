@@ -2,11 +2,12 @@
 // This is the primary/outermost  Bottom Tabs Navigation logic for the app. All other navigators are to be nested inside of this one.
 
 // Library Imports
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useWindowDimensions, ViewStyle } from 'react-native';
 
 // Custom Components
 import { AppTheme } from '../../theme/theme';
@@ -19,13 +20,23 @@ import MapStack from './MapStack';
 const Tabs = createBottomTabNavigator();
 
 export function AppNavigation() : React.JSX.Element {
+  // calculate the screen dimensions to determine device orientation
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
+  const [tabBarStyle, setTabBarStyle] = useState<ViewStyle>({ borderTopWidth: 0, elevation: 0 });
+
+  // when the device switches to landscape, hide the navbar to give more screen space. this is currently only used in the mapVew screen though it would apply globally if other screens have orientation unlocked.
+  useEffect(() => {
+    setTabBarStyle(isLandscape ? { display: 'none' } : { borderTopWidth: 0, elevation: 0 });
+  }, [isLandscape]);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={AppTheme}>
         <Tabs.Navigator
           screenOptions={{
             headerShown: false,
-            tabBarStyle: { borderTopWidth: 0, elevation: 0 },
+            tabBarStyle,
             tabBarLabelStyle: { fontFamily: 'bender-bold' },
           }}
         >
