@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Ionicons, MaterialCommunityIcons} from '@expo/vector-icons/';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useWindowDimensions, ViewStyle } from 'react-native';
 
@@ -15,6 +15,7 @@ import HomeScreen from '../../screens/HomeScreen';
 import User from '../../screens/User';
 import ItemStack from './ItemStack';
 import MapStack from './MapStack';
+import AmmoCharts from 'src/screens/AmmoCharts';
 
 // Create BottomTab Navigator
 const Tabs = createBottomTabNavigator();
@@ -61,6 +62,14 @@ export function AppNavigation() : React.JSX.Element {
             options={{
               title: 'Maps',
               tabBarIcon: ({ color, size }) => <Ionicons name="map" color={color} size={size} />,
+            }}
+          />
+          <Tabs.Screen 
+            name="AmmoCharts"
+            component={AmmoCharts}
+            options={{
+              title: 'Ammo Charts',
+              tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="ammunition" color={color} size={size} />,
             }}
           />
           <Tabs.Screen
