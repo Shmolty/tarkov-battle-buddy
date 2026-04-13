@@ -16,8 +16,8 @@ export default function AmmoCharts()
         <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right', 'bottom']}>
         <View style={styles.screen}>
             <Title>Ammo Charts</Title>
-            <View>
-                
+            <View style={styles.chartContainer}>
+                <Text style={{fontSize: 24, color: 'white'}}>Scatter plot will go here</Text>
             </View>
         </View>
         </SafeAreaView>
@@ -29,4 +29,9 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
+    chartContainer: {
+        flex: 1,
+        margin: 20,
+        justifyContent: 'center',
+    }
 });
