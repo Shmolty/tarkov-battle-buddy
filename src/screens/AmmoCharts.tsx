@@ -2,6 +2,8 @@
 // Screen for displaying a scatter plot for each caliber of ammo. Data shown is the damage (x) and armor penetration (y) values for each type. 
 // OPTIONAL - Could also add recoil modifier and other data separate from the x and y values (perhaps listed under the chart) when a certain ammo is selected.
 
+// TODO!! --> First I need to get the ammo data from tarkov.dev API. Then I use that data to create charts for each caliber of ammunition. Also need to create a selector for users to choose which caliber of ammo they want to view. The chart library I am going with is react-native-gifted-charts, 'https://www.npmjs.com/package/react-native-gifted-charts'.
+
 // Library Imports
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
