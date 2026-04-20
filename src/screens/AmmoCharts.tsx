@@ -1,149 +1,19 @@
 // ---AMMO CHARTS SCREEN---
-// Screen for displaying scatter plots for each caliber of ammo. Data shown is the damage (x) and armor penetration (y) values.
-// Uses a custom scatter plot implementation without external chart libraries.
+// Screen for displaying a scatter plot for each caliber of ammo. Data shown is the damage (x) and armor penetration (y) values for each type. 
+// OPTIONAL - Could also add recoil modifier and other data separate from the x and y values (perhaps listed under the chart) when a certain ammo is selected.
 
-import React, { useMemo, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+// TODO!! --> First I need to get the ammo data from tarkov.dev API. Then I use that data to create charts for each caliber of ammunition. Also need to create a selector for users to choose which caliber of ammo they want to view. The chart library I am going with is react-native-gifted-charts, 'https://www.npmjs.com/package/react-native-gifted-charts'.
+
+// Library Imports
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useQuery } from '@apollo/client/react';
 
 // Custom Components
 import Title from 'src/components/Title';
 
-// graphql
-import { SEARCH_ALL_AMMO } from 'src/graphql/ammo';
-
-// types
-import { SearchAmmoData, Ammo } from '../types/ammo';
-
-const CHART_WIDTH = Dimensions.get('window').width - 100;
-const CHART_HEIGHT = 300;
-const PADDING = 40;
-
 export default function AmmoCharts()
 : React.JSX.Element {
-    const [selectedCaliber, setSelectedCaliber] = useState<string | null>(null);
-
-    // query for all ammo data
-    const { data, loading, error } = useQuery<SearchAmmoData>(SEARCH_ALL_AMMO, {
-        fetchPolicy: 'cache-and-network',
-        notifyOnNetworkStatusChange: true,
-    });
-
-    // break ammo down into categories by caliber
-    const ammoByCaliber = useMemo(() => {
-        if (!data?.ammo) return {};
-        return data.ammo.reduce<Record<string, Ammo[]>>((acc, ammoItem) => {
-            const caliber = ammoItem.caliber || 'Unknown';
-            if (!acc[caliber]) acc[caliber] = [];
-            acc[caliber].push(ammoItem);
-            return acc;
-        }, {});
-    }, [data]);
-
-    // set default caliber to first available if not selected
-    const calibers = useMemo(() => Object.keys(ammoByCaliber).sort(), [ammoByCaliber]);
-    const activeCalibber = selectedCaliber || calibers[0];
-
-    // prepare scatter plot data for selected caliber
-    const scatterData = useMemo(() => {
-        if (!activeCalibber || !ammoByCaliber[activeCalibber]) {
-            return [];
-        }
-
-        return ammoByCaliber[activeCalibber].map(ammo => ({
-            x: ammo.damage,
-            y: ammo.penetrationPower,
-            label: ammo.item.name,
-        }));
-    }, [activeCalibber, ammoByCaliber]);
-
-    // Calculate scale and positions for data points
-    const chartData = useMemo(() => {
-        if (scatterData.length === 0) return null;
-
-        const damages = scatterData.map(d => d.x);
-        const penetrations = scatterData.map(d => d.y);
-
-        const minDamage = Math.min(...damages);
-        const maxDamage = Math.max(...damages);
-        const minPenetration = Math.min(...penetrations);
-        const maxPenetration = Math.max(...penetrations);
-
-        // Add 10% padding to ranges
-        const damageRange = maxDamage - minDamage || 1;
-        const penetrationRange = maxPenetration - minPenetration || 1;
-
-        const xMin = minDamage - damageRange * 0.1;
-        const xMax = maxDamage + damageRange * 0.1;
-        const yMin = minPenetration - penetrationRange * 0.1;
-        const yMax = maxPenetration + penetrationRange * 0.1;
-
-        // Scale functions
-        const scaleX = (value: number) => {
-            return PADDING + ((value - xMin) / (xMax - xMin)) * (CHART_WIDTH - PADDING);
-        };
-
-        const scaleY = (value: number) => {
-            return CHART_HEIGHT - PADDING - ((value - yMin) / (yMax - yMin)) * (CHART_HEIGHT - PADDING);
-        };
-
-        // Generate axis ticks
-        const generateTicks = (min: number, max: number, count: number = 5) => {
-            const ticks = [];
-            const step = (max - min) / (count - 1);
-            for (let i = 0; i < count; i++) {
-                ticks.push(min + step * i);
-            }
-            return ticks;
-        };
-
-        const xTicks = generateTicks(xMin, xMax, 5);
-        const yTicks = generateTicks(yMin, yMax, 5);
-
-        const points = scatterData.map(d => ({
-            x: scaleX(d.x),
-            y: scaleY(d.y),
-            label: d.label,
-            dataX: d.x,
-            dataY: d.y,
-        }));
-
-        return {
-            points,
-            xMin,
-            xMax,
-            yMin,
-            yMax,
-            scaleX,
-            scaleY,
-            xTicks,
-            yTicks,
-        };
-    }, [scatterData]);
-
-    if (loading) {
-        return (
-            <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right', 'bottom']}>
-                <View style={styles.screen}>
-                    <Title>Ammo Charts</Title>
-                    <Text style={{ fontSize: 18, color: 'white' }}>Loading ammo data...</Text>
-                </View>
-            </SafeAreaView>
-        );
-    }
-
-    if (error) {
-        return (
-            <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right', 'bottom']}>
-                <View style={styles.screen}>
-                    <Title>Ammo Charts</Title>
-                    <Text style={{ fontSize: 18, color: 'white' }}>Error loading ammo: {error.message}</Text>
-                </View>
-            </SafeAreaView>
-        );
-    }
-
     return (
         <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right', 'bottom']}>
             <View style={styles.screen}>
