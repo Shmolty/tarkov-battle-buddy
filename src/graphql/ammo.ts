@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const SEARCH_AMMO_BY_CALIBER = gql`
-  query SearchAmmoByCaliber($caliber: String!, $limit: Int!, $offset: Int!) {
-    ammo(caliber: $caliber, limit: $limit, offset: $offset) {
+export const SEARCH_ALL_AMMO = gql`
+  query SearchAllAmmo {
+    ammo {
       caliber
       item {
         name

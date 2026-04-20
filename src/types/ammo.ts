@@ -11,9 +11,3 @@ export type Ammo = {
 export type SearchAmmoData = {
     ammo: Ammo[];
 };
-
-export type SearchAmmoVars = {
-    item: Item;
-    limit: number;
-    offset: number;
-};
