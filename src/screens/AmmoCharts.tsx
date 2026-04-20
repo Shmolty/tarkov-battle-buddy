@@ -88,6 +88,19 @@ export default function AmmoCharts()
             return CHART_HEIGHT - PADDING - ((value - yMin) / (yMax - yMin)) * (CHART_HEIGHT - PADDING);
         };
 
+        // Generate axis ticks
+        const generateTicks = (min: number, max: number, count: number = 5) => {
+            const ticks = [];
+            const step = (max - min) / (count - 1);
+            for (let i = 0; i < count; i++) {
+                ticks.push(min + step * i);
+            }
+            return ticks;
+        };
+
+        const xTicks = generateTicks(xMin, xMax, 5);
+        const yTicks = generateTicks(yMin, yMax, 5);
+
         const points = scatterData.map(d => ({
             x: scaleX(d.x),
             y: scaleY(d.y),
@@ -104,6 +117,8 @@ export default function AmmoCharts()
             yMax,
             scaleX,
             scaleY,
+            xTicks,
+            yTicks,
         };
     }, [scatterData]);
 
@@ -194,22 +209,67 @@ export default function AmmoCharts()
                                     />
                                 ))}
 
+                                {/* Y-axis tick labels */}
+                                {chartData.yTicks.map((tick, idx) => (
+                                    <Text
+                                        key={`y-tick-${idx}`}
+                                        style={[
+                                            styles.axisTickLabel,
+                                            {
+                                                top: CHART_HEIGHT - PADDING - (idx / (chartData.yTicks.length - 1)) * (CHART_HEIGHT - PADDING) - 8,
+                                                left: -45,
+                                            },
+                                        ]}
+                                    >
+                                        {Math.round(tick * 10) / 10}
+                                    </Text>
+                                ))}
+
+                                {/* X-axis tick labels */}
+                                {chartData.xTicks.map((tick, idx) => (
+                                    <Text
+                                        key={`x-tick-${idx}`}
+                                        style={[
+                                            styles.axisTickLabel,
+                                            {
+                                                left: PADDING + (idx / (chartData.xTicks.length - 1)) * (CHART_WIDTH - PADDING) - 12,
+                                                top: CHART_HEIGHT - PADDING + 8,
+                                            },
+                                        ]}
+                                    >
+                                        {Math.round(tick * 10) / 10}
+                                    </Text>
+                                ))}
+
                                 {/* Axes */}
                                 <View style={[styles.axis, { left: PADDING, height: CHART_HEIGHT }]} />
                                 <View style={[styles.axis, { top: CHART_HEIGHT - PADDING, width: CHART_WIDTH }]} />
 
-                                {/* Data points */}
+                                {/* Data points with labels */}
                                 {chartData.points.map((point, idx) => (
-                                    <View
-                                        key={idx}
-                                        style={[
-                                            styles.dataPoint,
-                                            {
-                                                left: point.x - 5,
-                                                top: point.y - 5,
-                                            },
-                                        ]}
-                                    />
+                                    <View key={idx}>
+                                        <View
+                                            style={[
+                                                styles.dataPoint,
+                                                {
+                                                    left: point.x - 5,
+                                                    top: point.y - 5,
+                                                },
+                                            ]}
+                                        />
+                                        <Text
+                                            style={[
+                                                styles.dataLabel,
+                                                {
+                                                    left: point.x + 8,
+                                                    top: point.y - 8,
+                                                },
+                                            ]}
+                                            numberOfLines={1}
+                                        >
+                                            {point.label}
+                                        </Text>
+                                    </View>
                                 ))}
                             </View>
 
@@ -296,6 +356,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: '#888',
     },
+    axisTickLabel: {
+        position: 'absolute',
+        color: '#aaa',
+        fontSize: 9,
+        fontWeight: '400',
+    },
     dataPoint: {
         position: 'absolute',
         width: 10,
@@ -304,6 +370,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#64c8ff',
         borderWidth: 1,
         borderColor: '#ffffff',
+    },
+    dataLabel: {
+        position: 'absolute',
+        color: '#64c8ff',
+        fontSize: 9,
+        fontWeight: '500',
+        backgroundColor: '#1a1a1a',
+        paddingHorizontal: 4,
+        paddingVertical: 2,
+        borderRadius: 3,
+        maxWidth: 80,
     },
     xAxisLabel: {
         color: '#fff',
