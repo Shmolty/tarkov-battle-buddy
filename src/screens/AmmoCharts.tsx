@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     chartContainer: {
-        flex: 1,
         width: '100%',
     },
     status: {

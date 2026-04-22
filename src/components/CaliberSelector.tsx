@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 12,
     gap: 8,
+    height: 80,
   },
   button: {
     paddingHorizontal: 16,
