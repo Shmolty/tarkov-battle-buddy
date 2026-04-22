@@ -5,19 +5,45 @@
 // TODO!! --> First I need to get the ammo data from tarkov.dev API. Then I use that data to create charts for each caliber of ammunition. Also need to create a selector for users to choose which caliber of ammo they want to view. The chart library I am going with is react-native-gifted-charts, 'https://www.npmjs.com/package/react-native-gifted-charts'.
 
 // Library Imports
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useQuery } from '@apollo/client/react';
 
 // Custom Components
 import Title from 'src/components/Title';
+import { SEARCH_ALL_AMMO } from '../graphql/ammo';
+import { SearchAmmoData } from 'src/types/ammo';
 
 export default function AmmoCharts()
 : React.JSX.Element {
+
+    const { loading, error, data } = 
+    useQuery<
+        SearchAmmoData
+    >(SEARCH_ALL_AMMO, {
+        fetchPolicy: "cache-and-network",
+        notifyOnNetworkStatusChange: true,
+    });
+
+    const ammo = data?.ammo;
+
+    console.log("ammo data: ", ammo);
+
     return (
         <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right', 'bottom']}>
             <View style={styles.screen}>
                 <Title>Ammo Charts</Title>
+
+                {loading && data?.ammo.length === 0 ? (
+                    <Text style={styles.status}>Loading ...</Text>
+                ) : error ? (
+                    <Text style={styles.error}>Error: {error.message}</Text>
+                ) : (
+                    <View>
+                        
+                    </View>
+                )}
 
             </View>
         </SafeAreaView>
@@ -29,5 +55,17 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingVertical: 10,
+    },
+    status: {
+        fontFamily: 'bender-bold',
+        fontSize: 18,
+        marginTop: 12,
+        color: 'white'
+    },
+    error: {
+        fontFamily: 'bender-bold',
+        fontSize: 18,
+        marginTop: 12,
+        color: "red",
     },
 });
