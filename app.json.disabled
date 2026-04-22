@@ -25,6 +25,11 @@
     },
     "web": {
       "favicon": "./src/assets/icons/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-font",
+      "react-native-reanimated/plugin",
+      "@shopify/react-native-skia"
+    ]
   }
 }
