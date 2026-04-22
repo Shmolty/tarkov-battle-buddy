@@ -11,3 +11,10 @@ export type Ammo = {
 export type SearchAmmoData = {
     ammo: Ammo[];
 };
+
+export type ScatterDataPoint = {
+    x: number;
+    y: number;
+    label: string;
+    recoilModifier: number;
+};

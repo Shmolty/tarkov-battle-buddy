@@ -1,24 +1,42 @@
 // ---AMMO CHARTS SCREEN---
-// Screen for displaying a scatter plot for each caliber of ammo. Data shown is the damage (x) and armor penetration (y) values for each type. 
+// Screen for displaying a scatter plot for each caliber of ammo. Data shown is the damage (x) and armor penetration (y) values for each type.
 // OPTIONAL - Could also add recoil modifier and other data separate from the x and y values (perhaps listed under the chart) when a certain ammo is selected.
 
-// TODO!! --> First I need to get the ammo data from tarkov.dev API. Then I use that data to create charts for each caliber of ammunition. Also need to create a selector for users to choose which caliber of ammo they want to view. The chart library I am going with is react-native-gifted-charts, 'https://www.npmjs.com/package/react-native-gifted-charts'.
-
 // Library Imports
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useQuery } from '@apollo/client/react';
 
 // Custom Components
 import Title from 'src/components/Title';
+import CaliberSelector from 'src/components/CaliberSelector';
+import AmmoScatterChart from 'src/components/AmmoScatterChart';
 import { SEARCH_ALL_AMMO } from '../graphql/ammo';
-import { SearchAmmoData } from 'src/types/ammo';
+import { SearchAmmoData, Ammo, ScatterDataPoint } from 'src/types/ammo';
+
+const groupAmmoByCaliber = (ammo: Ammo[]): Record<string, ScatterDataPoint[]> => {
+  return ammo.reduce((grouped, ammoItem) => {
+    const caliber = ammoItem.caliber;
+    if (!grouped[caliber]) {
+      grouped[caliber] = [];
+    }
+    grouped[caliber].push({
+      x: ammoItem.damage,
+      y: ammoItem.penetrationPower,
+      label: ammoItem.item.name,
+      recoilModifier: ammoItem.recoilModifier,
+    });
+    return grouped;
+  }, {} as Record<string, ScatterDataPoint[]>);
+};
 
 export default function AmmoCharts()
 : React.JSX.Element {
 
-    const { loading, error, data } = 
+    const [selectedCaliber, setSelectedCaliber] = useState<string>('');
+
+    const { loading, error, data } =
     useQuery<
         SearchAmmoData
     >(SEARCH_ALL_AMMO, {
@@ -28,20 +46,43 @@ export default function AmmoCharts()
 
     const ammo = data?.ammo;
 
-    console.log("ammo data: ", ammo);
+    useEffect(() => {
+        if (ammo && ammo.length > 0) {
+            const groupedAmmo = groupAmmoByCaliber(ammo);
+            const calibers = Object.keys(groupedAmmo);
+            if (calibers.length > 0 && !selectedCaliber) {
+                setSelectedCaliber(calibers[0]);
+            }
+        }
+    }, [ammo, selectedCaliber]);
+
+    const groupedAmmo = ammo ? groupAmmoByCaliber(ammo) : {};
+    const calibers = Object.keys(groupedAmmo);
 
     return (
         <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right', 'bottom']}>
             <View style={styles.screen}>
                 <Title>Ammo Charts</Title>
 
-                {loading && data?.ammo.length === 0 ? (
+                {loading && (!ammo || ammo.length === 0) ? (
                     <Text style={styles.status}>Loading ...</Text>
                 ) : error ? (
                     <Text style={styles.error}>Error: {error.message}</Text>
+                ) : calibers.length === 0 ? (
+                    <Text style={styles.status}>No ammo data available</Text>
                 ) : (
-                    <View>
-                        
+                    <View style={styles.chartContainer}>
+                        <CaliberSelector
+                            calibers={calibers}
+                            selectedCaliber={selectedCaliber}
+                            onSelect={setSelectedCaliber}
+                        />
+                        {selectedCaliber && groupedAmmo[selectedCaliber] && (
+                            <AmmoScatterChart
+                                data={groupedAmmo[selectedCaliber]}
+                                caliber={selectedCaliber}
+                            />
+                        )}
                     </View>
                 )}
 
@@ -55,6 +96,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingVertical: 10,
+    },
+    chartContainer: {
+        flex: 1,
+        width: '100%',
     },
     status: {
         fontFamily: 'bender-bold',
