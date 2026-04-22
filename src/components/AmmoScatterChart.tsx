@@ -68,22 +68,27 @@ export default function AmmoScatterChart({
             <View style={styles.gridBackground} />
 
             {/* Data Points */}
+            
             {data.map((point, index) => {
               const x = scaleX(point.x);
               const y = scaleY(point.y);
+
               return (
-                <Pressable
-                  key={index}
-                  style={[
-                    styles.dataPoint,
-                    { left: x - 6, top: y - 6 },
-                  ]}
-                  onPress={() => handlePointPress(point)}
-                >
-                  <View style={styles.pointDot} />
-                </Pressable>
+                <View key={index} style={{ position: 'absolute', left: x, top: y }}>
+                  <Pressable
+                    style={styles.dataPoint}
+                    onPress={() => handlePointPress(point)}
+                  >
+                    <View style={styles.pointDot} />
+                  </Pressable>
+
+                  <Text style={styles.pointLabel}>
+                    {point.label}
+                  </Text>
+                </View>
               );
             })}
+
 
             {/* X-Axis */}
             <View style={styles.xAxis} />
@@ -283,6 +288,15 @@ const styles = StyleSheet.create({
     backgroundColor: AppTheme.colors.primary,
     borderWidth: 1,
     borderColor: 'white',
+  },
+  pointLabel: {
+    position: 'absolute',
+    top: -14,
+    left: 8,
+    fontFamily: 'bender',
+    fontSize: 10,
+    color: 'white',
+    maxWidth: 80,
   },
   infoContainer: {
     marginTop: 12,
