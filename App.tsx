@@ -2,7 +2,7 @@
 // This component serves as the initialization of all navigation and assets for the application.
 
 // Library Imports
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { ApolloProvider } from '@apollo/client/react';
 
@@ -12,10 +12,15 @@ import { AppProviders } from './src/app/AppProviders';
 import { AppNavigation } from './src/app/Navigation/AppNavigation';
 import { apolloClient } from 'src/graphql/apolloClient';
 
+// context
+import AuthContextProvider, { AuthContext } from "src/context/AuthContext";
+import AuthenticationStack from 'src/app/Navigation/AuthenticationStack';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App(): React.JSX.Element | null {
   const { ready, images } = usePreloadedAssets();
+  const authCtx = useContext(AuthContext);
 
   // remove splash screen once assets are loaded
   useEffect(() => {
@@ -31,7 +36,8 @@ export default function App(): React.JSX.Element | null {
   return (
     <ApolloProvider client={apolloClient}>
       <AppProviders backgroundSource={images.background}>
-        <AppNavigation />
+        {!authCtx.isAuthenticated && <AuthenticationStack />}
+        {authCtx.isAuthenticated && <AppNavigation />}
       </AppProviders>
     </ApolloProvider>
   );
