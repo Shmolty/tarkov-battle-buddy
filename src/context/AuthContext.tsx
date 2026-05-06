@@ -23,6 +23,7 @@ export default function AuthContextProvider({
 
     function authenticate(token: string) {
         setAuthToken(token);
+        console.log('auth token set in context: ' + authToken);
     }
 
     function logout() {

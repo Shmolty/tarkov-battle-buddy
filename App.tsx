@@ -18,9 +18,19 @@ import AuthenticationStack from 'src/app/Navigation/AuthenticationStack';
 
 SplashScreen.preventAutoHideAsync();
 
+function Navigation() {
+  const authCtx = useContext(AuthContext);
+
+  return (
+    <>
+      {!authCtx.isAuthenticated && <AuthenticationStack />}
+      {authCtx.isAuthenticated && <AppNavigation />}
+    </>
+  );
+}
+
 export default function App(): React.JSX.Element | null {
   const { ready, images } = usePreloadedAssets();
-  const authCtx = useContext(AuthContext);
 
   // remove splash screen once assets are loaded
   useEffect(() => {
@@ -35,10 +45,11 @@ export default function App(): React.JSX.Element | null {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <AppProviders backgroundSource={images.background}>
-        {!authCtx.isAuthenticated && <AuthenticationStack />}
-        {authCtx.isAuthenticated && <AppNavigation />}
-      </AppProviders>
+      <AuthContextProvider>
+        <AppProviders backgroundSource={images.background}>
+          <Navigation />
+        </AppProviders>
+      </AuthContextProvider>
     </ApolloProvider>
   );
 }

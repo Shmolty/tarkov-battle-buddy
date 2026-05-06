@@ -3,15 +3,20 @@
 // !!!TODO: ---> Add authentication to the application, then generate user data on this screen. Also add a logout feature here.
 
 // Library Imports
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Button, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// context
+import { AuthContext } from 'src/context/AuthContext';
+
 function User(): React.JSX.Element {
+  const authCtx = useContext(AuthContext);
+
   return (
     <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right', 'bottom']}>
-      <View>
-        <Text style={{ fontSize: 18 }}>DUMMY USER / ACCOUNT PAGE</Text>
+      <View style={styles.screen}>
+        <Button title="LOG OUT" onPress={() => authCtx.logout()} />
       </View>
     </SafeAreaView>
   );
@@ -20,5 +25,8 @@ function User(): React.JSX.Element {
 export default User;
 
 const styles = StyleSheet.create({
-  // styles go here lol
+  screen: {
+    flex: 1,
+    alignItems: 'center',
+  },
 });
