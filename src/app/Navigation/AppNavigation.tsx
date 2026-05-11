@@ -11,6 +11,7 @@ import { useWindowDimensions, ViewStyle } from 'react-native';
 
 // Custom Components
 import { AppTheme } from '../../theme/theme';
+import { AppProviders } from '../AppProviders';
 import HomeScreen from '../../screens/HomeScreen';
 import User from '../../screens/User';
 import ItemStack from './ItemStack';
@@ -20,7 +21,7 @@ import AmmoCharts from 'src/screens/AmmoCharts';
 // Create BottomTab Navigator
 const Tabs = createBottomTabNavigator();
 
-export function AppNavigation() : React.JSX.Element {
+export function AppNavigation({ images }: any) : React.JSX.Element {
   // calculate the screen dimensions to determine device orientation
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
@@ -32,6 +33,7 @@ export function AppNavigation() : React.JSX.Element {
   }, [isLandscape]);
 
   return (
+    <AppProviders backgroundSource={images.background}>
     <SafeAreaProvider>
       <NavigationContainer theme={AppTheme}>
         <Tabs.Navigator
@@ -82,5 +84,6 @@ export function AppNavigation() : React.JSX.Element {
         </Tabs.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
+    </AppProviders>
   );
 }

@@ -8,7 +8,6 @@ import { ApolloProvider } from '@apollo/client/react';
 
 // Custom components
 import { usePreloadedAssets } from './src/assets/usePreloadedAssets';
-import { AppProviders } from './src/app/AppProviders';
 import { AppNavigation } from './src/app/Navigation/AppNavigation';
 import { apolloClient } from 'src/graphql/apolloClient';
 
@@ -18,13 +17,17 @@ import AuthenticationStack from 'src/app/Navigation/AuthenticationStack';
 
 SplashScreen.preventAutoHideAsync();
 
-function Navigation() {
+function Navigation({ images }: any) {
   const authCtx = useContext(AuthContext);
+
+  if (authCtx.isRestoring) {
+    return null;
+  }
 
   return (
     <>
       {!authCtx.isAuthenticated && <AuthenticationStack />}
-      {authCtx.isAuthenticated && <AppNavigation />}
+      {authCtx.isAuthenticated && <AppNavigation images={images} />}
     </>
   );
 }
@@ -46,9 +49,7 @@ export default function App(): React.JSX.Element | null {
   return (
     <ApolloProvider client={apolloClient}>
       <AuthContextProvider>
-        <AppProviders backgroundSource={images.background}>
-          <Navigation />
-        </AppProviders>
+          <Navigation images={images} />
       </AuthContextProvider>
     </ApolloProvider>
   );

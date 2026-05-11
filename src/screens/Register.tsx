@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LoadingScreen from 'src/components/LoadingScreen';
+import PrimaryButton from 'src/components/PrimaryButton';
 import { AuthContext } from 'src/context/AuthContext';
 import { createUser } from 'src/firebase/auth';
 
@@ -126,7 +127,7 @@ export default function Register({navigation} : any) : React.JSX.Element {
                 />
 
                 <View style={styles.buttonContainer}>
-                    <Button title="REGISTER" onPress={submitHandler} />
+                    <PrimaryButton title="REGISTER" onPress={submitHandler} />
                 </View>
 
                 <Text style={styles.prompt}>Already have an account?</Text>
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
     input: {
         width: 'auto',
         height: 35,
+        fontFamily: 'bender',
         color: 'black',
         backgroundColor: 'white',
         borderRadius: 5,
@@ -196,7 +198,7 @@ const styles = StyleSheet.create({
     link: {
         fontSize: 16,
         fontFamily: 'bender-bold',
-        color: '#00aeff',
+        color: 'rgba(0, 124, 43, 1)',
         alignSelf: 'center',
     }
 });
