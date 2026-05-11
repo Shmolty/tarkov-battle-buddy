@@ -45,7 +45,6 @@ export default function AuthContextProvider({
         try {
             await SecureStore.setItemAsync('auth_token', token);
             setAuthToken(token);
-            console.log('auth token set in context and secure store');
         } catch (e) {
             console.log('Failed to save token to secure store:', e);
             setAuthToken(token);
