@@ -5,33 +5,68 @@
 
 // Library Imports
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, ListRenderItemInfo } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ListRenderItemInfo, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Custom components
 import Title from '../components/Title';
 import { AppTheme } from 'src/theme/theme';
+import Tile from 'src/components/Tile';
 
-// Placholder content for testing purposes.
-const content: string[] = [
-  'Placeholder content goes here. I am just creating an array of strings as an example',
-  'Here is another sentence that is better off unread. It is a waste of time to sit here and read through this stuff.',
-  'Wait are you seriously still reading this? I thought i was clear, this is just filler content.',
-  'Well if you are going to keep reading I might as well fill you in on my biggest secret. You will have to scroll through some stuff to find it though.',
-  'Blah blah blee blee blah. -Aristotle',
-  'You know the secret is in here somewhere but I cannot just put it in the bottom and make it easy for you.',
-  "Have you noticed I avoid using ' in this text? It's really not hard to do but I am lazy and thus will not be doing it much",
-  'The big secret is I have no idea what I am doing',
-  "There's something special about writing a bunch of nonsense just to fill a screen. Kind of like a personal diary I guess.",
-  'I am really running out of things to say so I think I will just stop here for now. Just enough content to scroll through',
-];
+function HomeScreen({ navigation }: any): React.JSX.Element {
 
-function HomeScreen(): React.JSX.Element {
+  // function to navigate based on selected tile
+  function navigateToScreen(screenName: string) {
+    switch (screenName) {
+      case 'itemSearch':
+        navigation.navigate('ItemSearchStack');
+        break;
+      case 'maps':
+        navigation.navigate('MapSelect');
+        break;
+      case 'ammo':
+        navigation.navigate('AmmoCharts');
+        break;
+    }
+  }
+
   return (
     <SafeAreaView style={{flex: 1}} edges={['top', 'left', 'right', 'bottom']}>
       <View style={styles.rootScreen}>
         <Title>Tarkov Battle Buddy</Title>
-        <FlatList
+
+        <View style={styles.subtitleContainer}>
+          <Text style={styles.subtitle}>The ultimate companion app for</Text>
+        <Text style={[styles.subtitle,{fontFamily: 'bender-bold'}]}>Escape From Tarkov</Text>
+        </View>
+
+        <Text style={styles.subtitle}>This app is designed as a convenient all in one tool for finding the information you need in raid!</Text>
+        
+        <View style={styles.gridContainer}>
+
+          <Text style={styles.subtitle}>What you can do:</Text>
+
+          <View style={{ justifyContent: 'center',flexDirection: 'row' }}>
+
+            <Tile title="SEARCH ITEMS" imageSource={require('../assets/images/itemSearchPreview.png')} onPress={() => navigateToScreen('itemSearch')} />
+
+            <Tile title="VIEW MAPS" imageSource={require('../assets/images/mapScreenPreview.png')} onPress={() => navigateToScreen('maps')} />
+
+          </View>
+
+          <View style={{ justifyContent: 'center',flexDirection: 'row' }}>
+
+            <Tile title="CHECK AMMO" imageSource={require('../assets/images/ammoChartPreview.png')} onPress={() => navigateToScreen('ammo')} />
+
+          </View>
+          
+        </View>
+
+        <View>
+          <Text style={styles.subtitle}>Click any option or use the bottom tabs below to get started!</Text>
+        </View>
+
+        {/* <FlatList
           data={content}
           keyExtractor={(item, index) => `${index}`}
           renderItem={({ item }: ListRenderItemInfo<string>) => (
@@ -40,7 +75,7 @@ function HomeScreen(): React.JSX.Element {
             </View>
           )}
           alwaysBounceVertical={false}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );
@@ -53,6 +88,36 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  subtitleContainer: {
+    paddingVertical: 10,
+    marginHorizontal: 40
+  },
+  subtitle: {
+    fontFamily: 'bender',
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
+  },
+  gridContainer: {
+    flex: 1,
+    width: '100%',
+    padding: 20,
+  },
+  gridItem: {
+    width: 150,
+    padding: 10,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 10,
+    justifyContent: 'center',
+    backgroundColor: 'black',
+  },
+  pressed: {
+    opacity: 0.75
+  },
+
   listItem: {
     padding: 15,
   },
